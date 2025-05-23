@@ -1,0 +1,395 @@
+<div class="create-property-container">
+  <h1>Create New Listing</h1>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
+    <!-- Apartment/Building Section -->
+    <div class="form-section">
+      <h2>Apartment/Building Information</h2>
+
+      <div class="form-group">
+        <label for="apartmentBuilding">Choose your Apartment/Building</label>
+        <input
+          type="text"
+          id="apartmentBuilding"
+          formControlName="apartmentBuilding"
+          placeholder="Enter the name of your Apartment/Building"
+        />
+        <div
+          *ngIf="
+            propertyForm.get('apartmentBuilding')?.invalid &&
+            propertyForm.get('apartmentBuilding')?.touched
+          "
+          class="error"
+        >
+          Apartment/Building name is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Shared Property Section -->
+    <div class="form-section">
+      <h2>Shared Property</h2>
+
+      <div class="form-group">
+        <label>Is this a shared property?</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="shared-yes"
+              value="true"
+              formControlName="isShared"
+            />
+            <label for="shared-yes">Yes</label>
+          </div>
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="shared-no"
+              value="false"
+              formControlName="isShared"
+            />
+            <label for="shared-no">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Location Section -->
+    <div class="form-section">
+      <h2>Property Location</h2>
+
+      <div class="form-group">
+        <label for="location">Street Address</label>
+        <input
+          type="text"
+          id="location"
+          formControlName="location"
+          placeholder="Enter the street address"
+        />
+        <div
+          *ngIf="
+            propertyForm.get('location')?.invalid &&
+            propertyForm.get('location')?.touched
+          "
+          class="error"
+        >
+          Location is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Property Details Section -->
+    <div class="form-section">
+      <h2>Property Details</h2>
+
+      <div class="form-group">
+        <label for="squareFeet">Square Feet</label>
+        <input
+          type="number"
+          id="squareFeet"
+          formControlName="squareFeet"
+          placeholder="Enter square footage"
+        />
+        <div
+          *ngIf="
+            propertyForm.get('squareFeet')?.invalid &&
+            propertyForm.get('squareFeet')?.touched
+          "
+          class="error"
+        >
+          <span *ngIf="propertyForm.get('squareFeet')?.errors?.['required']"
+            >Square footage is required</span
+          >
+          <span *ngIf="propertyForm.get('squareFeet')?.errors?.['min']"
+            >Square footage must be greater than 0</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Stay / Lease type</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="lease-long"
+              value="long-term"
+              formControlName="leaseType"
+            />
+            <label for="lease-long">Long term (6+ months)</label>
+          </div>
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="lease-short"
+              value="short-term"
+              formControlName="leaseType"
+            />
+            <label for="lease-short">Short term</label>
+          </div>
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="lease-both"
+              value="both"
+              formControlName="leaseType"
+            />
+            <label for="lease-both">Both</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expected Rent Section -->
+    <div class="form-section">
+      <h2>Expected Rent</h2>
+
+      <div class="form-group">
+        <label for="rent">Expected Rent</label>
+        <input
+          type="number"
+          id="rent"
+          formControlName="rent"
+          placeholder="Enter amount"
+        />
+        <div
+          *ngIf="
+            propertyForm.get('rent')?.invalid &&
+            propertyForm.get('rent')?.touched
+          "
+          class="error"
+        >
+          <span *ngIf="propertyForm.get('rent')?.errors?.['required']"
+            >Rent amount is required</span
+          >
+          <span *ngIf="propertyForm.get('rent')?.errors?.['min']"
+            >Rent must be greater than 0</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <input type="checkbox" id="negotiable" formControlName="isNegotiable" />
+        <label for="negotiable">Negotiable</label>
+      </div>
+
+      <div class="form-group">
+        <label>Price Mode</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="price-monthly"
+              value="per-month"
+              formControlName="priceMode"
+            />
+            <label for="price-monthly">Per Month</label>
+          </div>
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="price-utilities"
+              value="utilities-included"
+              formControlName="priceMode"
+            />
+            <label for="price-utilities">Utilities included in rent</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Furnishing Section -->
+    <div class="form-section">
+      <h2>Furnishing</h2>
+
+      <div class="form-group">
+        <label>Is the property furnished?</label>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="furnished-yes"
+              value="true"
+              formControlName="isFurnished"
+            />
+            <label for="furnished-yes">Yes</label>
+          </div>
+          <div class="radio-option">
+            <input
+              type="radio"
+              id="furnished-no"
+              value="false"
+              formControlName="isFurnished"
+            />
+            <label for="furnished-no">No</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Amenities Section -->
+    <div class="form-section">
+      <h2>Amenities Included</h2>
+
+      <div class="amenities-checkboxes">
+        <div *ngFor="let amenity of amenitiesList" class="amenity-checkbox">
+          <input
+            type="checkbox"
+            [id]="'amenity-' + amenity"
+            [value]="amenity"
+            (change)="onAmenityChange($event)"
+          />
+          <label [for]="'amenity-' + amenity">{{ amenity }}</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description Section -->
+    <div class="form-section">
+      <h2>Description</h2>
+
+      <div class="form-group">
+        <textarea
+          formControlName="description"
+          rows="4"
+          placeholder="Provide a detailed description of your property"
+        ></textarea>
+        <div
+          *ngIf="
+            propertyForm.get('description')?.invalid &&
+            propertyForm.get('description')?.touched
+          "
+          class="error"
+        >
+          <span *ngIf="propertyForm.get('description')?.errors?.['required']"
+            >Description is required</span
+          >
+          <span *ngIf="propertyForm.get('description')?.errors?.['minlength']"
+            >Description must be at least 10 characters</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Add this inside your form, wherever appropriate -->
+    <div class="form-group">
+      <label for="images">Property Photos</label>
+      <div class="upload-container">
+        <input
+          type="file"
+          id="images"
+          multiple
+          accept="image/*"
+          (change)="onFileSelected($event)"
+          class="file-input"
+        />
+        <button type="button" class="upload-btn" (click)="triggerFileInput()">
+          Choose Photos
+        </button>
+        <span *ngIf="selectedFiles.length > 0" class="file-count">
+          {{ selectedFiles.length }} file(s) selected
+        </span>
+      </div>
+
+      <div *ngIf="selectedFiles.length > 0" class="preview-container">
+        <div
+          *ngFor="let preview of imagePreviews; let i = index"
+          class="image-preview"
+        >
+          <img [src]="preview" alt="Preview" />
+          <button type="button" class="remove-btn" (click)="removeFile(i)">
+            ×
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Details Section -->
+    <div class="form-section" formGroupName="contactDetails">
+      <h2>Contact Details</h2>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          placeholder="Your name"
+        />
+        <div
+          *ngIf="
+            propertyForm.get('contactDetails.name')?.invalid &&
+            propertyForm.get('contactDetails.name')?.touched
+          "
+          class="error"
+        >
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Your email address"
+        />
+        <div
+          *ngIf="
+            propertyForm.get('contactDetails.email')?.invalid &&
+            propertyForm.get('contactDetails.email')?.touched
+          "
+          class="error"
+        >
+          <span
+            *ngIf="propertyForm.get('contactDetails.email')?.errors?.['required']"
+            >Email is required</span
+          >
+          <span
+            *ngIf="propertyForm.get('contactDetails.email')?.errors?.['email']"
+            >Enter a valid email</span
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input
+          type="tel"
+          id="phone"
+          formControlName="phone"
+          placeholder="Your phone number"
+        />
+        <div
+          *ngIf="
+            propertyForm.get('contactDetails.phone')?.invalid &&
+            propertyForm.get('contactDetails.phone')?.touched
+          "
+          class="error"
+        >
+          Phone number is required
+        </div>
+      </div>
+    </div>
+
+    <!-- Form Submission -->
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" routerLink="/home">
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn-submit"
+        [disabled]="isFormInvalid || loading"
+      >
+        {{ loading ? "Creating Listing..." : "Create Listing" }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,62 @@
+<div class="filter-container">
+  <div class="search-box">
+    <input 
+      type="text" 
+      [(ngModel)]="filters.searchQuery" 
+      (input)="applyFilters()"
+      placeholder="Search by location, property name, or description"
+    >
+  </div>
+  
+  <div class="filter-options">
+    <div class="filter-group">
+      <label>Price Range</label>
+      <div class="price-inputs">
+        <input 
+          type="number" 
+          [(ngModel)]="filters.minPrice" 
+          (change)="applyFilters()"
+          placeholder="Min"
+          min="0"
+        >
+        <span>to</span>
+        <input 
+          type="number" 
+          [(ngModel)]="filters.maxPrice" 
+          (change)="applyFilters()"
+          placeholder="Max"
+          min="0"
+        >
+      </div>
+    </div>
+    
+    <div class="filter-group">
+      <label>Property Type</label>
+      <select [(ngModel)]="filters.propertyType" (change)="applyFilters()">
+        <option value="all">All</option>
+        <option value="private">Private</option>
+        <option value="shared">Shared</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label>Lease Type</label>
+      <select [(ngModel)]="filters.leaseType" (change)="applyFilters()">
+        <option value="all">All</option>
+        <option value="short-term">Short Term</option>
+        <option value="long-term">Long Term</option>
+      </select>
+    </div>
+    
+    <div class="filter-group">
+      <label>Furnishing</label>
+      <select [(ngModel)]="filters.isFurnished" (change)="applyFilters()">
+        <option value="all">All</option>
+        <option value="furnished">Furnished</option>
+        <option value="unfurnished">Unfurnished</option>
+      </select>
+    </div>
+    
+    <button class="reset-btn" (click)="resetFilters()">Reset Filters</button>
+  </div>
+</div>

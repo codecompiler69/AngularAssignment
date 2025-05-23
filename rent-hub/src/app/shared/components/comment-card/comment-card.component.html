@@ -1,0 +1,14 @@
+<div class="comment-card">
+  <div class="comment-header">
+    <span class="username">{{ comment.username }}</span>
+    <span class="date">{{ formatDate(comment.createdAt) }}</span>
+  </div>
+  
+  <div class="comment-content">
+    {{ comment.content }}
+  </div>
+  
+  <div *ngIf="isOwner" class="comment-actions">
+    <button (click)="onDelete()">Delete</button>
+  </div>
+</div>

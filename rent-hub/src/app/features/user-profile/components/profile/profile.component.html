@@ -1,0 +1,31 @@
+<div class="profile-container" *ngIf="currentUser">
+  <h1>User Profile</h1>
+  
+  <div class="profile-tabs">
+    <button 
+      [class.active]="activeTab === 'listings'" 
+      (click)="setActiveTab('listings')"
+    >
+      My Listings
+    </button>
+    <button 
+      [class.active]="activeTab === 'favorites'" 
+      (click)="setActiveTab('favorites')"
+    >
+      My Favorites
+    </button>
+  </div>
+  
+  <div class="profile-content">
+    
+    <!-- My Listings Tab -->
+    <app-my-listings *ngIf="activeTab === 'listings'"></app-my-listings>
+    
+    <!-- My Favorites Tab -->
+    <app-favorites *ngIf="activeTab === 'favorites'"></app-favorites>
+  </div>
+</div>
+
+<div class="login-prompt" *ngIf="!currentUser">
+  <p>Please <a routerLink="/auth/login">login</a> to view your profile.</p>
+</div>

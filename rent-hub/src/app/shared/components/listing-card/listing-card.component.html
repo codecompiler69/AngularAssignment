@@ -1,0 +1,26 @@
+<div class="listing-card">
+  <div class="listing-image">
+    <img [src]="listing.images.length > 0 ? 'assets/images/' + listing.images[0] : 'assets/images/placeholder.jpg'" alt="{{ listing.apartmentBuilding }}">
+    
+    <div *ngIf="authService.isLoggedIn()" class="favorite-button" (click)="toggleFavorite($event)">
+      <img [src]="isFavorited ? 'assets/icons/favorite.svg' : 'assets/icons/unfavorite.svg'" alt="Favorite">
+    </div>
+  </div>
+  
+  <div class="listing-details">
+    <h3>{{ listing.apartmentBuilding }}</h3>
+    <p class="location">{{ listing.location }}</p>
+    <p class="price">${{ listing.rent }} <span *ngIf="listing.isNegotiable">(Negotiable)</span></p>
+    
+    <div class="listing-features">
+      <span class="feature">{{ listing.squareFeet }} sq.ft</span>
+      <span class="feature">{{ listing.isFurnished ? 'Furnished' : 'Unfurnished' }}</span>
+      <span class="feature">{{ listing.isShared ? 'Shared' : 'Private' }}</span>
+    </div>
+    
+    <div class="listing-amenities">
+      <span *ngFor="let amenity of listing.amenities.slice(0, 3)" class="amenity">{{ amenity }}</span>
+      <span *ngIf="listing.amenities.length > 3" class="more">+{{ listing.amenities.length - 3 }} more</span>
+    </div>
+  </div>
+</div>

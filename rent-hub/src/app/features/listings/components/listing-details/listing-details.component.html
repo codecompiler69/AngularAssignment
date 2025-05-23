@@ -1,0 +1,91 @@
+<div class="listing-details-container">
+  <div *ngIf="isLoading" class="loading">
+    Loading listing details...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!isLoading && !error && listing" class="listing-details">
+    <div class="listing-header">
+      <h1>{{ listing.apartmentBuilding }}</h1>
+      <p class="listing-location">{{ listing.location }}</p>
+      
+      <button *ngIf="authService.isLoggedIn()" (click)="toggleFavorite()" class="favorite-button">
+        {{ isFavorited ? 'Remove from Favorites' : 'Add to Favorites' }}
+      </button>
+    </div>
+    
+    <div class="listing-gallery">
+      <div class="gallery-container">
+        <button class="gallery-nav prev" (click)="prevImage()">&lt;</button>
+        <img [src]="getCurrentImage()" alt="{{ listing.apartmentBuilding }}">
+        <button class="gallery-nav next" (click)="nextImage()">&gt;</button>
+      </div>
+      <div class="gallery-thumbnails" *ngIf="listing.images.length > 1">
+        <div 
+          *ngFor="let image of listing.images; let i = index" 
+          [class.active]="i === currentImageIndex"
+          class="thumbnail" 
+          (click)="currentImageIndex = i"
+        >
+          <img [src]="'assets/images/' + image" alt="Thumbnail {{ i + 1 }}">
+        </div>
+      </div>
+    </div>
+    
+    <div class="listing-info">
+      <div class="listing-price">
+        <h2>${{ listing.rent }} <span *ngIf="listing.isNegotiable" class="negotiable">(Negotiable)</span></h2>
+        <p>{{ listing.priceMode === 'per-month' ? 'Per Month' : 'Utilities Included' }}</p>
+      </div>
+      
+      <div class="listing-details-grid">
+        <div class="detail-item">
+          <span class="label">Square Feet:</span>
+          <span class="value">{{ listing.squareFeet }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="label">Lease Type:</span>
+          <span class="value">
+            {{ listing.leaseType === 'long-term' ? 'Long Term (6+ months)' : 
+               listing.leaseType === 'short-term' ? 'Short Term' : 'Both' }}
+          </span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="label">Property Type:</span>
+          <span class="value">{{ listing.isShared ? 'Shared Property' : 'Private Property' }}</span>
+        </div>
+        
+        <div class="detail-item">
+          <span class="label">Furnishing:</span>
+          <span class="value">{{ listing.isFurnished ? 'Furnished' : 'Unfurnished' }}</span>
+        </div>
+      </div>
+      
+      <div class="listing-amenities">
+        <h3>Amenities</h3>
+        <div class="amenities-list">
+          <span *ngFor="let amenity of listing.amenities" class="amenity-tag">{{ amenity }}</span>
+        </div>
+      </div>
+      
+      <div class="listing-description">
+        <h3>Description</h3>
+        <p>{{ listing.description }}</p>
+      </div>
+      
+      <div class="contact-details">
+        <h3>Contact Information</h3>
+        <p><strong>Name:</strong> {{ listing.contactDetails.name }}</p>
+        <p><strong>Email:</strong> {{ listing.contactDetails.email }}</p>
+        <p><strong>Phone:</strong> {{ listing.contactDetails.phone }}</p>
+      </div>
+    </div>
+    
+    <app-comment-section [listingId]="listing.id"></app-comment-section>
+  </div>
+</div>

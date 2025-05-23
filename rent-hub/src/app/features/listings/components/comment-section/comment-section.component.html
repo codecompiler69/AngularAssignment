@@ -1,0 +1,49 @@
+<div class="comment-section">
+  <h3>Comments</h3>
+  
+  <div *ngIf="isLoading" class="loading">
+    Loading comments...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!isLoading && !error">
+    <div *ngIf="comments.length === 0" class="no-comments">
+      No comments yet. Be the first to comment!
+    </div>
+    
+    <div *ngIf="comments.length > 0" class="comments-list">
+      <app-comment-card 
+        *ngFor="let comment of comments" 
+        [comment]="comment"
+        (delete)="onDeleteComment($event)"
+      ></app-comment-card>
+    </div>
+  </div>
+  
+  <div *ngIf="isLoggedIn" class="comment-form">
+    <h4>Add a Comment</h4>
+    
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <textarea 
+          formControlName="content" 
+          rows="3" 
+          placeholder="Write your comment here..."
+        ></textarea>
+        <div *ngIf="commentForm.get('content')?.invalid && commentForm.get('content')?.touched" class="error">
+          <span *ngIf="commentForm.get('content')?.errors?.['required']">Comment cannot be empty</span>
+          <span *ngIf="commentForm.get('content')?.errors?.['minlength']">Comment is too short</span>
+        </div>
+      </div>
+      
+      <button type="submit" [disabled]="commentForm.invalid">Post Comment</button>
+    </form>
+  </div>
+  
+  <div *ngIf="!isLoggedIn" class="login-prompt">
+    <p>Please <a routerLink="/auth/login">login</a> to post a comment.</p>
+  </div>
+</div>

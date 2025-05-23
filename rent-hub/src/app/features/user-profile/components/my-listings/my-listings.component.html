@@ -1,0 +1,31 @@
+<div class="my-listings">
+  <h2>My Listings</h2>
+  
+  <div *ngIf="isLoading" class="loading">
+    Loading your listings...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!isLoading && !error">
+    <div *ngIf="listings.length === 0" class="no-listings">
+      <p>You don't have any listings yet.</p>
+      <a routerLink="/property/create" class="create-listing-btn">Create a Listing</a>
+    </div>
+    
+    <div *ngIf="listings.length > 0" class="listings-grid">
+      <div *ngFor="let listing of listings" class="listing-item">
+        <a [routerLink]="['/listings', listing.id]">
+          <app-listing-card [listing]="listing"></app-listing-card>
+        </a>
+        
+        <div class="listing-actions">
+          <a [routerLink]="['/property/preview', listing.id]" class="btn-view">View</a>
+          <button class="btn-delete" (click)="deleteListing(listing.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

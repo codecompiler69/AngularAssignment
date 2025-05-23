@@ -1,0 +1,82 @@
+<div class="preview-container">
+  <div *ngIf="isLoading" class="loading">
+    Loading listing preview...
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    {{ error }}
+  </div>
+  
+  <div *ngIf="!isLoading && !error && listing" class="preview-content">
+    <h1>Listing Preview</h1>
+    <p class="success-message">Your listing has been created successfully!</p>
+    
+    <div class="preview-card">
+      <div class="preview-header">
+        <h2>{{ listing.apartmentBuilding }}</h2>
+        <p class="location">{{ listing.location }}</p>
+      </div>
+      
+      <div class="preview-image">
+        <img src="assets/images/placeholder.jpg" alt="Property Preview">
+      </div>
+      
+      <div class="preview-details">
+        <div class="price-section">
+          <span class="price">${{ listing.rent }}</span>
+          <span *ngIf="listing.isNegotiable" class="negotiable">(Negotiable)</span>
+          <span class="price-mode">{{ listing.priceMode === 'per-month' ? 'Per Month' : 'Utilities Included' }}</span>
+        </div>
+        
+        <div class="details-grid">
+          <div class="detail-item">
+            <span class="label">Square Feet:</span>
+            <span class="value">{{ listing.squareFeet }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <span class="label">Property Type:</span>
+            <span class="value">{{ listing.isShared ? 'Shared' : 'Private' }}</span>
+          </div>
+          
+          <div class="detail-item">
+            <span class="label">Lease Type:</span>
+            <span class="value">
+              {{ listing.leaseType === 'long-term' ? 'Long Term (6+ months)' : 
+                 listing.leaseType === 'short-term' ? 'Short Term' : 'Both' }}
+            </span>
+          </div>
+          
+          <div class="detail-item">
+            <span class="label">Furnishing:</span>
+            <span class="value">{{ listing.isFurnished ? 'Furnished' : 'Unfurnished' }}</span>
+          </div>
+        </div>
+        
+        <div *ngIf="listing.amenities.length > 0" class="amenities-section">
+          <h3>Amenities</h3>
+          <div class="amenities-list">
+            <span *ngFor="let amenity of listing.amenities" class="amenity-tag">{{ amenity }}</span>
+          </div>
+        </div>
+        
+        <div class="description-section">
+          <h3>Description</h3>
+          <p>{{ listing.description }}</p>
+        </div>
+        
+        <div class="contact-section">
+          <h3>Contact Information</h3>
+          <p><strong>Name:</strong> {{ listing.contactDetails.name }}</p>
+          <p><strong>Email:</strong> {{ listing.contactDetails.email }}</p>
+          <p><strong>Phone:</strong> {{ listing.contactDetails.phone }}</p>
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn-edit" (click)="editListing()">Edit Listing</button>
+        <button class="btn-view" (click)="viewListing()">View Listing</button>
+      </div>
+    </div>
+  </div>
+</div>
