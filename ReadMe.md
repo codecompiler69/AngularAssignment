@@ -1,8 +1,3 @@
-# Improving Your README.md File
-
-Here's a comprehensive, improved README file that includes your project details and requirements:
-
-```markdown
 # RentHub 🏠
 
 A modern apartment rental platform that connects landlords and tenants in an intuitive, user-friendly environment.
@@ -114,18 +109,18 @@ ng e2e
 
 ## 🔗 Links
 
-- [Deployed Application](https://your-deployment-url.com)
-- [GitHub Repository](https://github.com/yourusername/rent-hub)
+- [Deployed Application](https://rent-hub-assignment.netlify.app/)
+- [Deployed Backend](https://angularassignment-zrnn.onrender.com)
 
 ## 🔐 Demo Credentials
 
-- **Landlord Account**
-  - Email: landlord@example.com
-  - Password: demo1234
+- **Account**
+  - Email: admin@admin.com
+  - Password: admin1234
 
 - **Tenant Account**
-  - Email: tenant@example.com
-  - Password: demo1234
+  - Email: jane.smith@example.com
+  - Password: password123
 
 ## 📝 Bonus Features Implemented
 
@@ -143,29 +138,3 @@ ng e2e
 - ✅ Intuitive User Interface
 - ✅ Responsive Design
 - ✅ Code Quality and Best Practices
-
-## 📚 Additional Resources
-
-For more information on using the Angular CLI, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-```
-
-Customize this template by:
-1. Adding your actual GitHub and deployment links
-2. Updating the demo credentials
-3. Checking which bonus features you've implemented
-4. Adding screenshots of your application
-5. Updating any specific installation instructions
-
-This README now effectively communicates the purpose and features of your RentHub application while maintaining the necessary technical information.
-Customize this template by:
-1. Adding your actual GitHub and deployment links
-2. Updating the demo credentials
-3. Checking which bonus features you've implemented
-4. Adding screenshots of your application
-5. Updating any specific installation instructions
-
-This README now effectively communicates the purpose and features of your RentHub application while maintaining the necessary technical information.
